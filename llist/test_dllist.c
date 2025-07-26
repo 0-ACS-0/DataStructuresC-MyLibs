@@ -1,4 +1,4 @@
-#include "sllist.h"
+#include "dllist.h"
 #include <stdio.h>
 
 // Prototipos de funciones:
@@ -9,36 +9,36 @@ void print_u16_data(void * data);
 int main(int argc, char ** argv){
 
     // Creación de una lista:
-    sll_linkedlist_pt list = sllist_init(sizeof(uint16_t));
+    dll_linkedlist_pt list = dllist_init(sizeof(uint16_t));
 
     // Inserción de datos al frente, cola y en un lugar en específico:
     uint16_t test_data[4] = {64, 128, 255, 512};
-    sllist_push_front(list, &test_data[0]);
-    sllist_push_back(list, &test_data[1]);
-    sllist_insert_at(list, &test_data[2], 1);
-    sllist_insert_at(list, &test_data[3], 2);
+    dllist_push_front(list, &test_data[0]);
+    dllist_push_back(list, &test_data[1]);
+    dllist_insert_at(list, &test_data[2], 1);
+    dllist_insert_at(list, &test_data[3], 2);
 
     // Prueba de funciones de búsqueda:
-    uint16_t * num = (uint16_t*)sllist_find(list, &test_data[0], is_double);
+    uint16_t * num = (uint16_t*)dllist_find(list, &test_data[0], is_double);
     printf("Número encontrado: %d\n\n", *num);
     printf("Lista: [ ");
-    sllist_foreach(list, print_u16_data);
+    dllist_foreach(list, print_u16_data);
     printf("]\n");
 
     // Eliminación de nodo:
-    sllist_pop_front(list);
-    sllist_remove_at(list, 2);
+    dllist_pop_front(list);
+    dllist_remove_at(list, 2);
     printf("Lista tras eliminar elementos: [ ");
-    sllist_foreach(list, print_u16_data);
+    dllist_foreach(list, print_u16_data);
     printf("]\n");
 
     // Datos de la lista:
-    printf("\nLa lista está vacía: %d\n", sllist_is_empty(list));
-    printf("Tamaño de lista: %ld\n", sllist_get_size(list));
-    printf("Tamaño de dato de cada nodo de la lista: %ld\n", sllist_get_data_size(list));
-    
+    printf("\nLa lista está vacía: %d\n", dllist_is_empty(list));
+    printf("Tamaño de lista: %ld\n", dllist_get_size(list));
+    printf("Tamaño de dato de cada nodo de la lista: %ld\n", dllist_get_data_size(list));
+
     // Destrucción de una lista:
-    sllist_deinit(list);
+    dllist_deinit(list);
 
     return 0;
 }

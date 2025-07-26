@@ -59,13 +59,14 @@ uint8_t sllist_insert_at(sll_linkedlist_pt list, const void * data, size_t index
 uint8_t sllist_pop_front(sll_linkedlist_pt list);
 uint8_t sllist_remove_at(sll_linkedlist_pt list, size_t index);
 
-// Búsqueda y recorrido:
+// Búsqueda e iteración:
 void * sllist_find(sll_linkedlist_pt list, const void * target, bool (*cmp_fn)(const void *, const void *));
 uint8_t sllist_foreach(sll_linkedlist_pt list, void (*fn)(void *));
 
 // Utilidades generales:
 bool sllist_is_empty(sll_linkedlist_pt list);
 size_t sllist_get_size(sll_linkedlist_pt list);
+size_t sllist_get_data_size(sll_linkedlist_pt list);
 /* ---------------------------------------------------------------- */
 
 #endif
