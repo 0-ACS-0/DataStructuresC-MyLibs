@@ -1,4 +1,4 @@
-#include "sllist.h"
+#include "csllist.h"
 #include <stdio.h>
 
 // Prototipos de funciones:
@@ -9,45 +9,45 @@ void print_u16_data(void * data);
 int main(int argc, char ** argv){
 
     // Creación de una lista:
-    sll_linkedlist_pt list = sllist_init(sizeof(uint16_t));
+    csll_linkedlist_pt list = csllist_init(sizeof(uint16_t));
 
     // Inserción de datos al frente, cola y en un lugar en específico:
     uint16_t test_data[4] = {64, 128, 255, 512};
-    sllist_push_front(list, &test_data[0]);
-    sllist_push_back(list, &test_data[1]);
-    sllist_insert_at(list, &test_data[2], 1);
-    sllist_insert_at(list, &test_data[3], 2);
+    csllist_push_front(list, &test_data[0]);
+    csllist_push_back(list, &test_data[1]);
+    csllist_insert_at(list, &test_data[2], 1);
+    csllist_insert_at(list, &test_data[3], 2);
 
     // Prueba de funciones de búsqueda:
-    uint16_t * num = (uint16_t*)sllist_find(list, &test_data[0], is_double);
+    uint16_t * num = (uint16_t*)csllist_find(list, &test_data[0], is_double);
     printf("Número encontrado: %d\n\n", *num);
     printf("Lista: [ ");
-    sllist_foreach(list, print_u16_data);
+    csllist_foreach(list, print_u16_data);
     printf("] en la dirección (%p)\n", (void *)list);
 
     // Eliminación de nodo:
-    sllist_pop_front(list);
-    sllist_remove_at(list, 2);
+    csllist_pop_front(list);
+    csllist_remove_at(list, 2);
     printf("Lista tras eliminar elementos: [ ");
-    sllist_foreach(list, print_u16_data);
+    csllist_foreach(list, print_u16_data);
     printf("] en la dirección (%p)\n", (void *)list);
 
     // Datos de la lista previa a su limpieza:
-    printf("\nLa lista está vacía: %d\n", sllist_is_empty(list));
-    printf("Tamaño de lista: %ld\n", sllist_get_size(list));
-    printf("Tamaño de dato de cada nodo de la lista: %ld\n", sllist_get_data_size(list));
+    printf("\nLa lista está vacía: %d\n", csllist_is_empty(list));
+    printf("Tamaño de lista: %ld\n", csllist_get_size(list));
+    printf("Tamaño de dato de cada nodo de la lista: %ld\n", csllist_get_data_size(list));
 
     // Limpieza de la lista:
-    sllist_clear(list);
+    csllist_clear(list);
 
     // Datos de la lista tras limpieza:
     printf("\nLista tras eliminar todos los nodos, en la dirección (%p)\n", (void *)list);
-    printf("La lista está vacía: %d\n", sllist_is_empty(list));
-    printf("Tamaño de lista: %ld\n", sllist_get_size(list));
-    printf("Tamaño de dato de cada nodo de la lista: %ld\n", sllist_get_data_size(list));
+    printf("La lista está vacía: %d\n", csllist_is_empty(list));
+    printf("Tamaño de lista: %ld\n", csllist_get_size(list));
+    printf("Tamaño de dato de cada nodo de la lista: %ld\n", csllist_get_data_size(list));
     
     // Destrucción de una lista:
-    sllist_deinit(&list);
+    csllist_deinit(&list);
 
     // Datos de la lista tras destrucción:
     printf("\n Lista tras ser eliminada: (%p)\n", (void *)list);

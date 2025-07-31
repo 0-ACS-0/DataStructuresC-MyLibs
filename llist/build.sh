@@ -7,7 +7,7 @@ CC=gcc
 CFLAGS_TEST="-g -Wall -O2"
 CFLAGS_LIB="-Wall -O2 -fPIC -shared"
 
-SRC_ARRAY=$1.c
+SRC_LIST=$1.c
 SRC_TEST=test_$1.c
 
 TEST_PROG=test_$1.elf
@@ -19,40 +19,40 @@ LIB_PROG=$1.so
 # -------------------------------- #
 if [ "$2" == "test" ]; then
     echo
-    echo "[BUILD-ARRAY-TEST]: Compilando programa de prueba de array..."
-    if $CC $CFLAGS_TEST $SRC_TEST $SRC_ARRAY -o $TEST_PROG; then
-        echo "[BUILD-ARRAY-TEST]: Compilación completada."
-        echo "[BUILD-ARRAY-TEST]: Ejecutando programa de prueba..."
+    echo "[BUILD-LIST-TEST]: Compilando programa de prueba de $1..."
+    if $CC $CFLAGS_TEST $SRC_TEST $SRC_LIST -o $TEST_PROG; then
+        echo "[BUILD-LIST-TEST]: Compilación completada."
+        echo "[BUILD-LIST-TEST]: Ejecutando programa de prueba..."
         echo
         ./$TEST_PROG
         echo
-        echo "[BUILD-ARRAY-TEST]: Ejecución de programa de prueba finalizado."
+        echo "[BUILD-LIST-TEST]: Ejecución de programa de prueba finalizado."
     else
-        echo "[BUILD-ARRAY-TEST][ERR]: Error de compilación, ejecución abortada."
+        echo "[BUILD-LIST-TEST][ERR]: Error de compilación, ejecución abortada."
     fi
     echo
 
 elif [ "$2" == "lib" ]; then
     echo
-    echo "[BUILD-ARRAY-LIB]: Compilando la librería de array..."
-    if $CC $CFLAGS_LIB $SRC_ARRAY -o $LIB_PROG; then
+    echo "[BUILD-LIST-LIB]: Compilando la librería de $1..."
+    if $CC $CFLAGS_LIB $SRC_TEST -o $LIB_PROG; then
         mv $LIB_PROG ./lib
-        echo "[BUILD-ARRAY-LIB]: Librearía compilada."
+        echo "[BUILD-LIST-LIB]: Librearía compilada."
     else
-        echo "[BUILD-ARRAY-LIB][ERR]: Error de compilación, librería no generada."
+        echo "[BUILD-LIST-LIB][ERR]: Error de compilación, librería no generada."
     fi
     echo
 
 elif [ "$2" == "clean" ]; then
     echo
-    echo "[BUILD-ARRAY-CLEAN]: Limpiando espacio de trabajo..."
+    echo "[BUILD-LIST-CLEAN]: Limpiando espacio de trabajo..."
     rm -f ./$TEST_PROG ./lib/$LIB_PROG
-    echo "[BUILD-ARRAY-CLEAN]: Espacio de trabajo limpio."
+    echo "[BUILD-LIST-CLEAN]: Espacio de trabajo limpio."
     echo
 
 else
     echo
-    echo "[BUILD-ARRAY][ERR]: Uso incorrecto u opciones inválidas."
+    echo "[BUILD-LIST][ERR]: Uso incorrecto u opciones inválidas."
     echo -e "\n\t[Uso]:"
     echo -e "\t\t-> ./build.sh <tipo> test: \tCompila y ejecuta el programa de test (.elf)"
     echo -e "\t\t-> ./build.sh <tipo> lib: \tCompila y genera la librería compartida (.so) bajo la carpeta lib/"

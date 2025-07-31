@@ -48,7 +48,8 @@ typedef dll_linkedlist_t * dll_linkedlist_pt;
 /* ---------------------------------------------------------------- */
 // Creación y destrucción de la lista:
 dll_linkedlist_pt dllist_init(size_t data_size);
-void dllist_deinit(dll_linkedlist_pt list);
+void dllist_deinit(dll_linkedlist_pt * list);
+void dllist_clear(dll_linkedlist_pt list);
 
 // Inserción de elementos:
 uint8_t dllist_push_front(dll_linkedlist_pt list, const void * data);

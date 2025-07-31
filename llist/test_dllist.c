@@ -23,22 +23,34 @@ int main(int argc, char ** argv){
     printf("Número encontrado: %d\n\n", *num);
     printf("Lista: [ ");
     dllist_foreach(list, print_u16_data);
-    printf("]\n");
+    printf("] en la dirección (%p)\n", (void *)list);
 
     // Eliminación de nodo:
     dllist_pop_front(list);
     dllist_remove_at(list, 2);
     printf("Lista tras eliminar elementos: [ ");
     dllist_foreach(list, print_u16_data);
-    printf("]\n");
+    printf("] en la dirección (%p)\n", (void *)list);
 
     // Datos de la lista:
     printf("\nLa lista está vacía: %d\n", dllist_is_empty(list));
     printf("Tamaño de lista: %ld\n", dllist_get_size(list));
     printf("Tamaño de dato de cada nodo de la lista: %ld\n", dllist_get_data_size(list));
 
+    // Limpieza de la lista:
+    dllist_clear(list);
+
+    // Datos de la lista tras limpieza:
+    printf("\nLista tras eliminar todos los nodos, en la dirección (%p)\n", (void *)list);
+    printf("La lista está vacía: %d\n", dllist_is_empty(list));
+    printf("Tamaño de lista: %ld\n", dllist_get_size(list));
+    printf("Tamaño de dato de cada nodo de la lista: %ld\n", dllist_get_data_size(list));
+
     // Destrucción de una lista:
-    dllist_deinit(list);
+    dllist_deinit(&list);
+
+    // Datos de la lista tras destrucción:
+    printf("\n Lista tras ser eliminada: (%p)\n", (void *)list);
 
     return 0;
 }

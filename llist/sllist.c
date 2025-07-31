@@ -46,13 +46,41 @@ sll_linkedlist_pt sllist_init(size_t data_size){
 
     @retval None.
 */
-void sllist_deinit(sll_linkedlist_pt list){
+void sllist_deinit(sll_linkedlist_pt * list){
     // Comprobación de que la lista no sea nula:
-    if (list == NULL){
+    if ((list == NULL) || (*list == NULL)){
         return;
     }
 
     // Liberación completa de memoria de la lista:
+    sll_node_pt temp_node = (*list)->head;
+    sll_node_pt next_node;
+    while (temp_node != NULL){
+        next_node = temp_node->next;
+        _sllist_node_deinit(temp_node);
+        temp_node = next_node;
+    }
+
+    free(*list);
+
+    // Se establece como lista inválida:
+    *list = NULL;
+}
+
+/*
+    @brief Función para liberar la memoria de los nodos sin liberar la estructura principal.
+
+    @param sll_linkedlist_pt list: Referencia a la lista.
+
+    @retval None.
+*/
+void sllist_clear(sll_linkedlist_pt list){
+    // Comprobación de lista válida:
+    if (list == NULL){
+        return;
+    }
+
+    // Liberación de los nodos de la lista:
     sll_node_pt temp_node = list->head;
     sll_node_pt next_node;
     while (temp_node != NULL){
@@ -61,7 +89,10 @@ void sllist_deinit(sll_linkedlist_pt list){
         temp_node = next_node;
     }
 
-    free(list);
+    // Reinicio de los miembros de la estructura:
+    list->size = 0;
+    list->head = NULL;
+    list->tail = NULL;
 }
 
 /*
@@ -403,7 +434,7 @@ size_t sllist_get_data_size(sll_linkedlist_pt list){
 /*
     @brief Función interna para crear un nodo de la lista.
     @note: Crea un nodo en cuanto a memoria se refiere, en el contexto de una lista completa se gestionará el cambio de forma externa.
-    @note: AL ser una función de uso interno, se obvian comprobaciones como punteros nulos. (Se suponen presentes en funciones públicas)
+    @note: Al ser una función de uso interno, se obvian comprobaciones como punteros nulos. (Se suponen presentes en funciones públicas)
 
     @param sll_linkedlist_pt list: Referencia a la lista que alojará al nodo.
     @param const void * data: Referencia a los datos que copiar al nodo.
@@ -433,7 +464,7 @@ static sll_node_pt _sllist_node_init(sll_linkedlist_pt list, const void * data){
 /*
     @brief Función interna para eliminar un nodo.
     @note: Elimina un nodo en cuanto a memoria se refiere, en el contexto de una lista completa se gestionará el cambio de forma externa.
-    @note: AL ser una función de uso interno, se obvian comprobaciones como punteros nulos. (Se suponen presentes en funciones públicas)
+    @note: Al ser una función de uso interno, se obvian comprobaciones como punteros nulos. (Se suponen presentes en funciones públicas)
 
     @param sll_node_pt node: Referencia al nodo a destruir.
 
