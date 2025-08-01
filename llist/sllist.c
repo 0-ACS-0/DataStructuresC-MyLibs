@@ -61,9 +61,8 @@ void sllist_deinit(sll_linkedlist_pt * list){
         temp_node = next_node;
     }
 
-    free(*list);
-
     // Se establece como lista inválida:
+    free(*list);
     *list = NULL;
 }
 
@@ -419,7 +418,6 @@ size_t sllist_get_data_size(sll_linkedlist_pt list){
     // Retorno del tamaño (en bytes) de los datos de un nodo de la lista.
     return list->data_size;
 }
-
 /* ---------------------------------------------------------------- */
 
 

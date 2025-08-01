@@ -62,6 +62,7 @@ void dllist_deinit(dll_linkedlist_pt * list){
         temp_node = next_node;
     }
 
+    // Se libera la estructura de la lista y se establece como lista inválida:
     free(*list);
     *list = NULL;
 }

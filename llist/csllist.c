@@ -64,10 +64,8 @@ void csllist_deinit(csll_linkedlist_pt * list){
         } while (temp_node != (*list)->head);
     }
 
-
+    // Se libera la estructura de la lista y se establece como lista inválida:
     free(*list);
-
-    // Se establece como lista inválida:
     *list = NULL;
 }
 
